@@ -13,3 +13,7 @@ Route::get('/post', function () {
 Route::get('/clubs', function () {
     return Inertia('Clubs');
 });
+
+Route::post('/logout', function () {
+    dd('logging out');
+});
