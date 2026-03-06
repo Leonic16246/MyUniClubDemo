@@ -8,10 +8,8 @@ export default function NavLink({ href, active, children, ...props }) {
     const isActive = active ?? url === href
     
     const linkStyle = {
-        padding: '0.5rem 1rem',
         textDecoration: isActive ? 'underline' : 'none',
         fontWeight: isActive ? 'bold' : 'normal',
-
     }
     
     return (

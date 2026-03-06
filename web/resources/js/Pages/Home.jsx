@@ -1,10 +1,12 @@
-import Nav from '../Shared/Nav';
+import Layout from "../Shared/layout";
 
-export default function Welcome() {
+export default function Home() {
     return (
-        <div style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-            <Nav />
-            <h1>Home</h1>
+        <div>
+
+            <Layout>
+                <h1 class="text-2xl font-bold">Home</h1>
+            </Layout>
             
         </div>
     );
