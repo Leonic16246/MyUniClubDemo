@@ -3,8 +3,8 @@ import NavLink from '../Shared/NavLink'
 export default function Nav() {
     return (
         <div>
-            <nav class="ml-6">
-                <ul class="flex list-disc space-x-4 list-inside">
+            <nav className="ml-6">
+                <ul className="flex list-disc space-x-4 list-inside">
                     <li>
                        <NavLink href="/">Home</NavLink>     
                     </li>

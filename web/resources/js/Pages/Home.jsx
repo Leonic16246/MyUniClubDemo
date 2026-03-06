@@ -5,7 +5,7 @@ export default function Home() {
         <div>
 
             <Layout>
-                <h1 class="text-2xl font-bold">Home</h1>
+                <h1 className="text-2xl font-bold">Home</h1>
             </Layout>
             
         </div>
