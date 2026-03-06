@@ -3,5 +3,13 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return Inertia('Home');
+});
+
+Route::get('/post', function () {
+    return Inertia('Post');
+});
+
+Route::get('/clubs', function () {
+    return Inertia('Clubs');
 });
