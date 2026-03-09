@@ -1,4 +1,4 @@
-import Layout from '../Shared/layout';
+
 
 export default function Clubs() {
     return (

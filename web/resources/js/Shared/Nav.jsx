@@ -4,7 +4,7 @@ export default function Nav() {
     return (
         <div>
             <nav className="ml-6">
-                <ul className="flex list-disc space-x-4 list-inside">
+                <ul className="flex space-x-6">
                     <li>
                        <NavLink href="/">Home</NavLink>     
                     </li>
