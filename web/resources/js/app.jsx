@@ -20,5 +20,6 @@ createInertiaApp({
     progress: {
         color: 'red',
         showSpinner: true,
-    }
+    },
+    title: title => `${title} - MyUniClubDemo`
 });

@@ -1,12 +1,13 @@
 import { usePage } from '@inertiajs/react';
 import Nav from "./Nav";
-
+import { Head } from '@inertiajs/react'
 
 export default function Layout({ children }) {
     const { auth } = usePage().props
 
     return (
         <div>
+            <Head title="MyUniClub" />
             <section className="p-6 bg-gray-200">
                 <header className="flex justify-between">
                     <h1 className="font-bold text-lg">MyUniClub</h1>
