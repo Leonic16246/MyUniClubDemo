@@ -2,9 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Clubs;
+use App\Models\ViewPosts;
 
 Route::get('/', function () {
-    return Inertia('Home');
+    return inertia('Home', [
+        'posts' => ViewPosts::with('club:id,name,image_url')  // Change from 'clubs' to 'club'
+            ->select('id', 'club_id', 'title', 'description', 'event_date', 'location', 'is_upcoming', 'created_at')
+            ->latest()
+            ->get()
+    ]);
 });
 
 Route::get('/post', function () {
