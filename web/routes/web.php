@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Clubs;
 use App\Models\ViewPosts;
@@ -17,9 +17,21 @@ Route::get('/post', function () {
     return Inertia('Post');
 });
 
-Route::get('/clubs', function () {
+Route::get('/clubs', function (Request $request) {
+    $search = $request->input('search', '');
+    
+    $clubs = Clubs::query()
+        ->when($search, function ($query, $search) {
+            $query->where('name', 'ilike', "%{$search}%")
+                  ->orWhere('description', 'ilike', "%{$search}%")
+                  ->orWhere('category', 'ilike', "%{$search}%");
+        })
+        ->select('id', 'name', 'description', 'category', 'image_url', 'member_count')
+        ->get();
+    
     return inertia('Clubs', [
-        'clubs' => Clubs::all(['id', 'name', 'description', 'category', 'image_url', 'member_count'])
+        'clubs' => $clubs,
+        'search' => $search
     ]);
 });
 

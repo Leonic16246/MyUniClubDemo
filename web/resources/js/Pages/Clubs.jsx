@@ -1,6 +1,24 @@
 import { Head } from '@inertiajs/react'
+import { router } from '@inertiajs/react'
+import { useState } from 'react'
 
-export default function Clubs({ clubs }) {
+export default function Clubs({ clubs, search }) {
+    const [searchTerm, setSearchTerm] = useState(search || '')
+    
+    const handleSearch = (value) => {
+        setSearchTerm(value)
+        
+        // Debounce the search request
+        clearTimeout(window.searchTimeout)
+        window.searchTimeout = setTimeout(() => {
+            router.get('/clubs', { search: value }, {
+                preserveState: true,
+                preserveScroll: true,
+                replace: true
+            })
+        }, 500) // 500ms
+    }
+    
     return (
         <div>
             <Head>
@@ -8,7 +26,33 @@ export default function Clubs({ clubs }) {
                 <meta head-key="description" name="description" content="Find Clubs" />
             </Head>
             
-            <h1 className="text-2xl font-bold mb-6">Find Clubs</h1>
+            <div className="mb-6">
+                <h1 className="text-2xl font-bold mb-4">Find Clubs</h1>
+                
+                {/* search */}
+                <div className="relative">
+                    <input
+                        type="text"
+                        placeholder="Search for clubs"
+                        value={searchTerm}
+                        onChange={(e) => handleSearch(e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                    />
+                    {searchTerm && (
+                        <button
+                            onClick={() => handleSearch('')}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        >
+                            ✕
+                        </button>
+                    )}
+                </div>
+                
+                {/* Results count */}
+                <p className="mt-2 text-sm text-gray-600">
+                    {clubs.length} {clubs.length === 1 ? 'club' : 'clubs'} found
+                </p>
+            </div>
             
             <ul role="list" className="divide-y divide-gray-200">
                 {clubs.map((club) => (
@@ -42,7 +86,9 @@ export default function Clubs({ clubs }) {
             </ul>
 
             {clubs.length === 0 && (
-                <p className="text-center text-gray-500 py-8">No clubs found.</p>
+                <p className="text-center text-gray-500 py-8">
+                    {searchTerm ? `No clubs found matching "${searchTerm}"` : 'No clubs found.'}
+                </p>
             )}
         </div>
     );
