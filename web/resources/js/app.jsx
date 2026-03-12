@@ -11,7 +11,9 @@ createInertiaApp({
             `./Pages/${name}.jsx`,
             import.meta.glob('./Pages/**/*.jsx')
         ).then((module) => {
-            module.default.layout = module.default.layout || ((page) => <Layout>{page}</Layout>);
+            if (module.default.layout === undefined) {
+                module.default.layout = (page) => <Layout>{page}</Layout>;
+            }
             return module;
         }),
     setup({ el, App, props }) {

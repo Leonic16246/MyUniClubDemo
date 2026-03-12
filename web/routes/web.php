@@ -3,6 +3,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Clubs;
 use App\Models\ViewPosts;
+use App\Http\Controllers\Auth\LoginController;
 
 Route::get('/', function () {
     return inertia('Home', [
@@ -11,30 +12,6 @@ Route::get('/', function () {
             ->latest()
             ->get()
     ]);
-});
-
-// form
-Route::get('/post', function () {
-    return inertia('Post', [
-        'clubs' => Clubs::select('id', 'name')->get()
-    ]);
-});
-
-// form submission
-Route::post('/post', function (Request $request) {
-    $validated = $request->validate([
-        'club_id' => 'required|exists:clubs,id',
-        'title' => 'required|string|max:255',
-        'description' => 'required|string',
-        'event_type' => 'required|string',
-        'event_date' => 'required|date',
-        'location' => 'required|string|max:255',
-        'is_upcoming' => 'boolean',
-    ]);
-
-    ViewPosts::create($validated);
-
-    return redirect('/')->with('success', 'Post created successfully!');
 });
 
 Route::get('/clubs', function (Request $request) {
@@ -55,6 +32,38 @@ Route::get('/clubs', function (Request $request) {
     ]);
 });
 
-Route::post('/logout', function () {
-    dd('logging out');
+Route::get('login', [LoginController::class, 'create'])->name('login');
+
+Route::middleware('auth')->group(function () {
+
+
+
+    // form
+    Route::get('/post', function () {
+        return inertia('Post', [
+            'clubs' => Clubs::select('id', 'name')->get()
+        ]);
+    });
+
+    // form submission
+    Route::post('/post', function (Request $request) {
+        $validated = $request->validate([
+            'club_id' => 'required|exists:clubs,id',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'event_type' => 'required|string',
+            'event_date' => 'required|date',
+            'location' => 'required|string|max:255',
+            'is_upcoming' => 'boolean',
+        ]);
+
+        ViewPosts::create($validated);
+
+        return redirect('/')->with('success', 'Post created successfully!');
+    });
+
+    Route::post('/logout', function () {
+        dd('logging out');
+    });
+
 });
