@@ -6,15 +6,35 @@ use App\Models\ViewPosts;
 
 Route::get('/', function () {
     return inertia('Home', [
-        'posts' => ViewPosts::with('club:id,name,image_url')  // Change from 'clubs' to 'club'
+        'posts' => ViewPosts::with('club:id,name,image_url') 
             ->select('id', 'club_id', 'title', 'description', 'event_date', 'location', 'is_upcoming', 'created_at')
             ->latest()
             ->get()
     ]);
 });
 
+// form
 Route::get('/post', function () {
-    return Inertia('Post');
+    return inertia('Post', [
+        'clubs' => Clubs::select('id', 'name')->get()
+    ]);
+});
+
+// form submission
+Route::post('/post', function (Request $request) {
+    $validated = $request->validate([
+        'club_id' => 'required|exists:clubs,id',
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'event_type' => 'required|string',
+        'event_date' => 'required|date',
+        'location' => 'required|string|max:255',
+        'is_upcoming' => 'boolean',
+    ]);
+
+    ViewPosts::create($validated);
+
+    return redirect('/')->with('success', 'Post created successfully!');
 });
 
 Route::get('/clubs', function (Request $request) {
