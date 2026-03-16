@@ -34,9 +34,9 @@ Route::get('/clubs', function (Request $request) {
 
 Route::get('login', [LoginController::class, 'create'])->name('login');
 
+Route::post('login', [LoginController::class, 'store']);
+
 Route::middleware('auth')->group(function () {
-
-
 
     // form
     Route::get('/post', function () {
