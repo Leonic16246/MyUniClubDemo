@@ -5,6 +5,12 @@ use App\Models\Clubs;
 use App\Models\ViewPosts;
 use App\Http\Controllers\Auth\LoginController;
 
+Route::get('login', [LoginController::class, 'create'])->name('login');
+Route::post('login', [LoginController::class, 'store']);
+
+Route::post('logout', [LoginController::class, 'destroy'])->middleware('auth');
+
+
 Route::get('/', function () {
     return inertia('Home', [
         'posts' => ViewPosts::with('club:id,name,image_url') 
@@ -32,9 +38,7 @@ Route::get('/clubs', function (Request $request) {
     ]);
 });
 
-Route::get('login', [LoginController::class, 'create'])->name('login');
 
-Route::post('login', [LoginController::class, 'store']);
 
 Route::middleware('auth')->group(function () {
 
@@ -60,10 +64,6 @@ Route::middleware('auth')->group(function () {
         ViewPosts::create($validated);
 
         return redirect('/')->with('success', 'Post created successfully!');
-    });
-
-    Route::post('/logout', function () {
-        dd('logging out');
     });
 
 });

@@ -12,8 +12,8 @@ export default function Layout({ children }) {
                 <header className="flex justify-between">
                     <h1 className="font-bold text-lg">MyUniClub</h1>
 
-                    <p className="text-sm ml-4">
-                        Welcome back, {auth.user.username}
+                    <p className="text-sm">
+                        {auth?.user ? `Welcome back, ${auth.user.username}` : 'Welcome'}
                     </p>
                     
                     <Nav />
