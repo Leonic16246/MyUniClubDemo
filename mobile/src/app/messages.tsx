@@ -2,13 +2,14 @@ import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react'
 
-export default function Explore() {
+export default function Messages() {
   return (
     <SafeAreaView>
-      <Text>explore</Text>
+      <Text>messages</Text>
     </SafeAreaView>
   )
 }
+
 
 
 const styles = StyleSheet.create({})
