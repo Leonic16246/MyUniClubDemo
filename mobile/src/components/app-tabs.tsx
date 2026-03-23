@@ -13,6 +13,7 @@ export default function AppTabs() {
       backgroundColor={colors.background}
       indicatorColor={colors.backgroundElement}
       labelStyle={{ selected: { color: colors.text } }}>
+        
       <NativeTabs.Trigger name="index">
         <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
@@ -28,6 +29,23 @@ export default function AppTabs() {
           renderingMode="template"
         />
       </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="communities">
+        <NativeTabs.Trigger.Label>Communities</NativeTabs.Trigger.Label>
+        {/* <NativeTabs.Trigger.Icon
+          src={require('@/assets/images/tabIcons/communities.png')}
+          renderingMode="template"
+        /> */}
+      </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="messages">
+        <NativeTabs.Trigger.Label>Messages</NativeTabs.Trigger.Label>
+        {/* <NativeTabs.Trigger.Icon
+          src={require('@/assets/images/tabIcons/messages.png')}
+          renderingMode="template"
+        /> */}
+      </NativeTabs.Trigger>
+
     </NativeTabs>
   );
 }
