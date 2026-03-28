@@ -1,7 +1,6 @@
 import { StyleSheet, Text, Image, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react'
-import Logo from '../../assets/images/CherryTreeGlyph.png';
 
 export default function HomeScreen() {
   return (
@@ -9,7 +8,7 @@ export default function HomeScreen() {
 
       <View style={styles.header}>
         <Text style={styles.title}>MyUniClubDemo</Text>
-        <Image source={Logo} style={styles.image}/>
+        <Image source={require('@/assets/images/CherryTreeGlyph.png')} style={styles.image}/>
       </View>
 
       <Text style={styles.greeting}>Hello, Leon</Text>

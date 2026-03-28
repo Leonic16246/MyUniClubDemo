@@ -32,18 +32,18 @@ export default function AppTabs() {
 
       <NativeTabs.Trigger name="communities">
         <NativeTabs.Trigger.Label>Communities</NativeTabs.Trigger.Label>
-        {/* <NativeTabs.Trigger.Icon
+        <NativeTabs.Trigger.Icon
           src={require('@/assets/images/tabIcons/communities.png')}
           renderingMode="template"
-        /> */}
+        />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="messages">
         <NativeTabs.Trigger.Label>Messages</NativeTabs.Trigger.Label>
-        {/* <NativeTabs.Trigger.Icon
+        <NativeTabs.Trigger.Icon
           src={require('@/assets/images/tabIcons/messages.png')}
           renderingMode="template"
-        /> */}
+        />
       </NativeTabs.Trigger>
 
     </NativeTabs>
