@@ -1,24 +1,31 @@
-import { StyleSheet, Text, Image, View, useColorScheme } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react'
-import { Colors } from '@/constants/theme';
+import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
+
 
 export default function HomeScreen() {
-  const colorScheme = useColorScheme(); // light / dark
-  const theme = colorScheme === 'dark' ? Colors.dark : Colors.light;
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
+    <SafeAreaView style={styles.container}>
 
-      <View style={styles.header}>
-        <Text style={[styles.title, { color: theme.text }]}>MyUniClubDemo</Text>
-        <Image source={require('@/assets/images/CherryTreeGlyph.png')} style={styles.image}/>
-      </View>
 
-      <Text style={[styles.greeting, { color: theme.text }]}>Hello, Leon</Text>
-      <Text style={[styles.heading, { color: theme.textSecondary }]}>Recent Events</Text>
-      <Text style={[styles.heading, { color: theme.textSecondary }]}>Latest Posts</Text>
+        <ThemedView style={styles.header}>
+          <ThemedText style={styles.title}>MyUniClubDemo</ThemedText>
+          <Image source={require('@/assets/images/CherryTreeGlyph.png')} style={styles.image}/>
+        </ThemedView>
+
+        <ThemedText>Hello, Leon</ThemedText>
+
+        <ThemedText>Recent Events</ThemedText>
+
+        <ThemedText>Latest Posts</ThemedText>
+
+
+
     </SafeAreaView>
+
   );
 }
 
