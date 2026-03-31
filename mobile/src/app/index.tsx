@@ -1,10 +1,11 @@
 import { StyleSheet, Text, Image, View, useColorScheme } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react'
+import { Colors } from '@/constants/theme';
 
 export default function HomeScreen() {
-  const colorScheme = useColorScheme(); // 'light' | 'dark'
-  const theme = colorScheme === 'dark' ? darkColors : lightColors;
+  const colorScheme = useColorScheme(); // light / dark
+  const theme = colorScheme === 'dark' ? Colors.dark : Colors.light;
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
@@ -15,23 +16,11 @@ export default function HomeScreen() {
       </View>
 
       <Text style={[styles.greeting, { color: theme.text }]}>Hello, Leon</Text>
-      <Text style={[styles.heading, { color: theme.subtext }]}>Recent Events</Text>
-      <Text style={[styles.heading, { color: theme.subtext }]}>Latest Posts</Text>
+      <Text style={[styles.heading, { color: theme.textSecondary }]}>Recent Events</Text>
+      <Text style={[styles.heading, { color: theme.textSecondary }]}>Latest Posts</Text>
     </SafeAreaView>
   );
 }
-
-const lightColors = {
-  background: '#ffffff',
-  text: '#000000',
-  subtext: '#444444',
-};
-
-const darkColors = {
-  background: '#121212',
-  text: '#f0f0f0',
-  subtext: '#aaaaaa',
-};
 
 const styles = StyleSheet.create({
   container: {
