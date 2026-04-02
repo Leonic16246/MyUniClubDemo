@@ -3,6 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react'
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { Link } from 'expo-router';
 
 
 export default function HomeScreen() {
@@ -10,19 +11,14 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
 
+        <ThemedText style={styles.title}>
+            Login
+        </ThemedText>
 
-        <ThemedView style={styles.header}>
-          <ThemedText style={styles.title}>MyUniClubDemo</ThemedText>
-          <Image source={require('@/assets/images/CherryTreeGlyph.png')} style={styles.image}/>
-        </ThemedView>
-
-        <ThemedText>Hello, Leon</ThemedText>
-
-        <ThemedText>Recent Events</ThemedText>
-
-        <ThemedText>Latest Posts</ThemedText>
-
-
+        <ThemedText>Don't have an account?</ThemedText>
+        <Link href='/register'>
+            <ThemedText>Register here</ThemedText>
+        </Link>
 
     </SafeAreaView>
 
