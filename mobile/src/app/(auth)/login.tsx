@@ -1,7 +1,8 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react'
 import { ThemedText } from '@/components/themed-text';
+import { ThemedView } from '@/components/themed-view';
 import { Link, useRouter } from 'expo-router';
 
 export default function LoginScreen() {
@@ -10,17 +11,21 @@ export default function LoginScreen() {
   return (
     <SafeAreaView style={styles.container}>
 
-        <TouchableOpacity onPress={() => router.canGoBack() ? router.back() : router.replace('/')}>
+      <TouchableOpacity onPress={() => router.canGoBack() ? router.back() : router.replace('/')}>
         <ThemedText>Back</ThemedText>
       </TouchableOpacity>
 
-      <ThemedText style={styles.title}>Login</ThemedText>
+      <ThemedView style={styles.content}>
 
-      <ThemedText>Don't have an account?</ThemedText>
-      <Link href='/register'>
-        <ThemedText>Register here</ThemedText>
-      </Link>
+        <ThemedText style={styles.title}>Login</ThemedText>
 
+        <ThemedText>Don't have an account?</ThemedText>
+
+        <Link href='/register'>
+          <ThemedText>Register here</ThemedText>
+        </Link>
+
+      </ThemedView>
     </SafeAreaView>
   );
 }
@@ -30,14 +35,16 @@ const styles = StyleSheet.create({
     padding: 8,
     flex: 1,
   },
+  content: {
+    flex: 1,
+    paddingTop: '50%',
+    alignItems: 'center',
+    gap: 8
+  },
   title: {
     fontWeight: 'bold',
     fontSize: 24,
     marginTop: 8,
-  },
-  greeting: {
-    fontWeight: 'bold',
-    fontSize: 20
   },
   heading: {
     fontSize: 16
