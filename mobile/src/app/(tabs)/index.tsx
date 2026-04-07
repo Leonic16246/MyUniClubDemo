@@ -1,5 +1,4 @@
 import { StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react'
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -9,7 +8,7 @@ export default function HomeScreen() {
   const router = useRouter();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ThemedView style={styles.container} safe={true}>
 
       <ThemedView style={styles.header} pointerEvents="box-none">
         <ThemedText style={styles.title}>MyUniClubDemo</ThemedText>
@@ -22,7 +21,7 @@ export default function HomeScreen() {
       <ThemedText>Recent Events</ThemedText>
       <ThemedText>Latest Posts</ThemedText>
 
-    </SafeAreaView>
+    </ThemedView>
   );
 }
 
