@@ -4,12 +4,14 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { useRouter } from 'expo-router';
 import { getPosts } from '@/services/api';
+import { useAuth } from '@/context/AuthContext'
 
 export default function HomeScreen() {
   const router = useRouter();
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const { user, logout } = useAuth()
 
   useEffect(() => {
     getPosts()
@@ -23,9 +25,15 @@ export default function HomeScreen() {
 
       <ThemedView style={styles.header} pointerEvents="box-none">
         <ThemedText style={styles.title}>MyUniClubDemo</ThemedText>
-        <TouchableOpacity onPress={() => router.push('/login')} style={styles.logoButton}>
-          <Image source={require('@/assets/images/CherryTreeGlyph.png')} style={styles.image}/>
-        </TouchableOpacity>
+        {user ? (
+          <TouchableOpacity onPress={logout}>
+            <ThemedText>Logout</ThemedText>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={() => router.push('/login')}>
+            <Image source={require('@/assets/images/CherryTreeGlyph.png')} style={styles.image}/>
+          </TouchableOpacity>
+        )}
       </ThemedView>
 
       <ThemedText style={styles.heading}>Recent Events</ThemedText>

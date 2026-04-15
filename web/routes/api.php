@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Models\Clubs;
 use App\Models\ViewPosts;
 
