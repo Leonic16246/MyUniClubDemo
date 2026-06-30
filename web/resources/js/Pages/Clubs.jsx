@@ -1,16 +1,20 @@
 import { Head } from '@inertiajs/react'
 import { router } from '@inertiajs/react'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function Clubs({ clubs, search }) {
     const [searchTerm, setSearchTerm] = useState(search || '')
-    
+    const searchTimeout = useRef(null)
+
+    // Cancel any in-flight debounce when leaving the page
+    useEffect(() => () => clearTimeout(searchTimeout.current), [])
+
     const handleSearch = (value) => {
         setSearchTerm(value)
-        
+
         // Debounce the search request
-        clearTimeout(window.searchTimeout)
-        window.searchTimeout = setTimeout(() => {
+        clearTimeout(searchTimeout.current)
+        searchTimeout.current = setTimeout(() => {
             router.get('/clubs', { search: value }, {
                 preserveState: true,
                 preserveScroll: true,
@@ -58,11 +62,18 @@ export default function Clubs({ clubs, search }) {
                 {clubs.map((club) => (
                     <li key={club.id} className="flex justify-between gap-x-6 py-5 hover:bg-gray-50 px-4 rounded-lg transition-colors cursor-pointer">
                         <div className="flex min-w-0 gap-x-4">
-                            <img 
-                                src={club.image_url || 'https://via.placeholder.com/48'} 
-                                alt={club.name} 
-                                className="h-12 w-12 flex-none rounded-full bg-gray-100 object-cover" 
-                            />
+                            {club.image_url ? (
+                                <img
+                                    src={club.image_url}
+                                    alt={club.name}
+                                    className="h-12 w-12 flex-none rounded-full bg-gray-100 object-cover"
+                                />
+                            ) : (
+                                <div
+                                    className="h-12 w-12 flex-none rounded-full bg-gray-100"
+                                    aria-hidden="true"
+                                />
+                            )}
                             <div className="min-w-0 flex-auto">
                                 <p className="text-sm font-semibold leading-6 text-gray-900">
                                     {club.name}

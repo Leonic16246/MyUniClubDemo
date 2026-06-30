@@ -14,17 +14,24 @@ export default function Home({ posts }) {
                 {posts.map((post) => (
                     <li key={post.id} className="flex justify-between gap-x-6 py-5 hover:bg-gray-50 px-4 rounded-lg transition-colors">
                         <div className="flex min-w-0 gap-x-4">
-                            <img 
-                                src={post.club.image_url} 
-                                alt={post.club.name} 
-                                className="h-12 w-12 flex-none rounded-full bg-gray-100 object-cover" 
-                            />
+                            {post.club?.image_url ? (
+                                <img
+                                    src={post.club.image_url}
+                                    alt={post.club.name}
+                                    className="h-12 w-12 flex-none rounded-full bg-gray-100 object-cover"
+                                />
+                            ) : (
+                                <div
+                                    className="h-12 w-12 flex-none rounded-full bg-gray-100"
+                                    aria-hidden="true"
+                                />
+                            )}
                             <div className="min-w-0 flex-auto">
                                 <p className="text-sm font-semibold leading-6 text-gray-900">
                                     {post.title}
                                 </p>
                                 <p className="mt-1 text-xs leading-5 text-gray-500">
-                                    {post.club.name}
+                                    {post.club?.name}
                                 </p>
                                 <p className="mt-1 text-sm leading-5 text-gray-600">
                                     {post.description}
