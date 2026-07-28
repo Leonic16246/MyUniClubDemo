@@ -1,5 +1,12 @@
 import { Head, useForm } from '@inertiajs/react'
 
+const inputStyle =
+    'w-full px-3 py-2 border border-gray-300 rounded-lg placeholder-gray-500 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none sm:text-sm'
+
+const labelStyle = 'block text-sm font-medium text-gray-700 mb-1'
+
+const errorStyle = 'mt-1 text-sm text-red-600'
+
 export default function Login() {
     const { data, setData, post, processing, errors } = useForm({
         email: '',
@@ -7,7 +14,7 @@ export default function Login() {
         remember: false,
     })
 
-    const handleSubmit = (e) => {
+    function handleSubmit(e) {
         e.preventDefault()
         post('/login')
     }
@@ -19,66 +26,48 @@ export default function Login() {
             </Head>
 
             <div className="max-w-md w-full space-y-8">
-                {/* Header */}
-                <div>
-                    <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                        Sign In
-                    </h2>
-                </div>
+                <h2 className="text-center text-3xl font-extrabold text-gray-900">Sign In</h2>
 
-                {/* Form */}
-                <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-                    <div className="rounded-md shadow-sm space-y-4">
-                        {/* Email */}
-                        <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                                Email address
-                            </label>
-                            <input
-                                id="email"
-                                name="email"
-                                type="email"
-                                autoComplete="email"
-                                required
-                                value={data.email}
-                                onChange={e => setData('email', e.target.value)}
-                                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                                placeholder="Email address"
-                            />
-                            {errors.email && <div className="mt-1 text-sm text-red-600">{errors.email}</div>}
-                        </div>
-
-                        {/* Password */}
-                        <div>
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                                Password
-                            </label>
-                            <input
-                                id="password"
-                                name="password"
-                                type="password"
-                                autoComplete="current-password"
-                                required
-                                value={data.password}
-                                onChange={e => setData('password', e.target.value)}
-                                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                                placeholder="Password"
-                            />
-                            {errors.password && <div className="mt-1 text-sm text-red-600">{errors.password}</div>}
-                        </div>
-                    </div>
-
-
-                    {/* Submit button */}
+                <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                        <button
-                            type="submit"
-                            disabled={processing}
-                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                            {processing ? 'Signing in...' : 'Sign in'}
-                        </button>
+                        <label htmlFor="email" className={labelStyle}>Email address</label>
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            autoComplete="email"
+                            placeholder="Email address"
+                            value={data.email}
+                            onChange={(e) => setData('email', e.target.value)}
+                            className={inputStyle}
+                            required
+                        />
+                        {errors.email && <div className={errorStyle}>{errors.email}</div>}
                     </div>
+
+                    <div>
+                        <label htmlFor="password" className={labelStyle}>Password</label>
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            autoComplete="current-password"
+                            placeholder="Password"
+                            value={data.password}
+                            onChange={(e) => setData('password', e.target.value)}
+                            className={inputStyle}
+                            required
+                        />
+                        {errors.password && <div className={errorStyle}>{errors.password}</div>}
+                    </div>
+
+                    <button
+                        type="submit"
+                        disabled={processing}
+                        className="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    >
+                        {processing ? 'Signing in...' : 'Sign in'}
+                    </button>
                 </form>
             </div>
         </div>

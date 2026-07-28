@@ -1,8 +1,8 @@
 <?php
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\Clubs;
-use App\Models\ViewPosts;
+use App\Models\Club;
+use App\Models\Post;
 use App\Http\Controllers\Auth\LoginController;
 
 Route::get('login', [LoginController::class, 'create'])->name('login');
@@ -13,7 +13,7 @@ Route::post('logout', [LoginController::class, 'destroy'])->middleware('auth');
 
 Route::get('/', function () {
     return inertia('Home', [
-        'posts' => ViewPosts::with('club:id,name,image_url') 
+        'posts' => Post::with('club:id,name,image_url')
             ->select('id', 'club_id', 'title', 'description', 'event_date', 'location', 'is_upcoming', 'created_at')
             ->latest()
             ->get()
@@ -23,7 +23,7 @@ Route::get('/', function () {
 Route::get('/clubs', function (Request $request) {
     $search = $request->input('search', '');
     
-    $clubs = Clubs::query()
+    $clubs = Club::query()
         ->when($search, function ($query, $search) {
             $query->where('name', 'ilike', "%{$search}%")
                   ->orWhere('description', 'ilike', "%{$search}%")
@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function () {
     // form
     Route::get('/post', function () {
         return inertia('Post', [
-            'clubs' => Clubs::select('id', 'name')->get()
+            'clubs' => Club::select('id', 'name')->get()
         ]);
     });
 
@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
             'is_upcoming' => 'boolean',
         ]);
 
-        ViewPosts::create($validated);
+        Post::create($validated);
 
         return redirect('/')->with('success', 'Post created successfully!');
     });

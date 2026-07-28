@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ViewPosts extends Model
+class Post extends Model
 {
     protected $table = 'club_posts';
 
@@ -19,8 +19,8 @@ class ViewPosts extends Model
         'is_upcoming'
     ];
 
-    public function club()  // Change from clubs() to club()
+    public function club()
     {
-        return $this->belongsTo(Clubs::class, 'club_id');  // Add 'club_id' explicitly
+        return $this->belongsTo(Club::class);
     }
 }
